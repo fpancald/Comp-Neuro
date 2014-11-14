@@ -15,8 +15,8 @@ function quadruped01(a,b,e,g,d,n)
     function dx=gait(t,x)
         dx=gaitpar(t,x,a,b,e,g,d,n)';
     end
-    options = odeset('RelTol',1e-4,'AbsTol',1e-4*ones(2*n,1));
-    [T,X] = ode45(@gait,[0 200],[ones(n,1);zeros(n,1)]);
+    options = odeset('RelTol',1e-4,'AbsTol',1e-4*ones(2*n,1),'NonNegative', 1:2*n);
+    [T,X] = ode45(@gait,[0 200],2*rand(2*n,1)-ones(2*n,1));
     shift=0.1;
     for j=1:n
         for it=1:length(T);
