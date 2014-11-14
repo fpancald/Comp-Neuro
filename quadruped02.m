@@ -31,10 +31,10 @@ function quadruped02(a,b,e,g,d,n)
 %     figure(0)
 %     plot(T,X(:,1:n));
     figure (1)
-%     plot(T,Y(:,1:n));
-    plot(T,X(:,1:n));
+    plot(T,Y(:,1:n));
+%     plot(T,X(:,1:n));
     figure(2)
-%     plot(T,Y(:,n+1:2*n));
-    plot(T,X(:,n+1:2*n));
+    plot(T,Y(:,n+1:2*n));
+%     plot(T,X(:,n+1:2*n));
 
 end
