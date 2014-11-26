@@ -1,4 +1,4 @@
-function leg3dog01(a,b,e,g,d,k,n)
+function leg3dog02(a,b,e,g,d,k,n)
 %n number of legs (even), a,b,e,g,d coupling parameters
 %can be used for animal with even number of legs and a missing limb
 %n>1
@@ -10,19 +10,19 @@ function leg3dog01(a,b,e,g,d,k,n)
             if i~=k
                 if mod(i,2)==1
                     if i==n
-                        dx(i)=x(i+n)-a*x(i)*(x(i)^2/3-1)+b+e*x(i)^2+g*(x(i)-x(1))+d*(x(i)-x(i-1));
+                        dx(i)=x(i+n)-a*x(i)*(x(i)^2/3-1)+b+e*x(i)^2+g*(2*x(i)-x(1)-x(i-1));
                     elseif  i==1
-                        dx(i)=x(i+n)-a*x(i)*(x(i)^2/3-1)+b+e*x(i)^2+g*(x(i)-x(i+1))+d*(x(i)-x(n));
+                        dx(i)=x(i+n)-a*x(i)*(x(i)^2/3-1)+b+e*x(i)^2+g*(2*x(i)-x(i+1)-x(n));
                     else
-                        dx(i)=x(i+n)-a*x(i)*(x(i)^2/3-1)+b+e*x(i)^2+g*(x(i)-x(i+1))+d*(x(i)-x(i-1));
+                        dx(i)=x(i+n)-a*x(i)*(x(i)^2/3-1)+b+e*x(i)^2+g*(2*x(i)-x(i+1)-x(i-1));
                     end
                 else
                     if i==n
-                        dx(i)=x(i+n)-a*x(i)*(x(i)^2/3-1)+b+e*x(i)^2+g*(x(i)-x(i-1))+d*(x(i)-x(1));
+                        dx(i)=x(i+n)-a*x(i)*(x(i)^2/3-1)+b+e*x(i)^2+d*(2*x(i)-x(i-1)-x(1));
                     elseif  i==1
-                        dx(i)=x(i+n)-a*x(i)*(x(i)^2/3-1)+b+e*x(i)^2+g*(x(i)-x(n))+d*(x(i)-x(i+1));
+                        dx(i)=x(i+n)-a*x(i)*(x(i)^2/3-1)+b+e*x(i)^2+d*(2*x(i)-x(n)-x(i+1));
                     else
-                        dx(i)=x(i+n)-a*x(i)*(x(i)^2/3-1)+b+e*x(i)^2+g*(x(i)-x(i-1))+d*(x(i)-x(i+1));
+                        dx(i)=x(i+n)-a*x(i)*(x(i)^2/3-1)+b+e*x(i)^2+d*(2*x(i)-x(i-1)-x(i+1));
                     end
                 end
                 dx(i+n)=-x(i);

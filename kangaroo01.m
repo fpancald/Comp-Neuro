@@ -1,44 +1,43 @@
-function leg3dog01(a,b,e,g,d,k,n)
-%n number of legs (even), a,b,e,g,d coupling parameters
-%can be used for animal with even number of legs and a missing limb
-%n>1
-% n=4; dog
-%k missing limb
-    function dx = gaitpar(t,x,a,b,e,g,d,k,n)
+function kangaroo01(a,b,e,g,d,n)
+%can be used for any animal with even number of limbs and tail used for
+%movement
+%n number of legs (odd), a,b,e,g,d coupling parameters
+%n needs to be >=3
+%i=n is the tail
+    function dx = gaitpar(t,x,a,b,e,g,d,n)
         %x(i)=xi, x(i+n)=yi
         for i=1:n
-            if i~=k
+            if i~=n
                 if mod(i,2)==1
-                    if i==n
+                    if i==n-1
                         dx(i)=x(i+n)-a*x(i)*(x(i)^2/3-1)+b+e*x(i)^2+g*(x(i)-x(1))+d*(x(i)-x(i-1));
                     elseif  i==1
-                        dx(i)=x(i+n)-a*x(i)*(x(i)^2/3-1)+b+e*x(i)^2+g*(x(i)-x(i+1))+d*(x(i)-x(n));
+                        dx(i)=x(i+n)-a*x(i)*(x(i)^2/3-1)+b+e*x(i)^2+g*(x(i)-x(i+1))+d*(x(i)-x(n-1));
                     else
                         dx(i)=x(i+n)-a*x(i)*(x(i)^2/3-1)+b+e*x(i)^2+g*(x(i)-x(i+1))+d*(x(i)-x(i-1));
                     end
                 else
-                    if i==n
+                    if i==n-1
                         dx(i)=x(i+n)-a*x(i)*(x(i)^2/3-1)+b+e*x(i)^2+g*(x(i)-x(i-1))+d*(x(i)-x(1));
                     elseif  i==1
-                        dx(i)=x(i+n)-a*x(i)*(x(i)^2/3-1)+b+e*x(i)^2+g*(x(i)-x(n))+d*(x(i)-x(i+1));
+                        dx(i)=x(i+n)-a*x(i)*(x(i)^2/3-1)+b+e*x(i)^2+g*(x(i)-x(n-1))+d*(x(i)-x(i+1));
                     else
                         dx(i)=x(i+n)-a*x(i)*(x(i)^2/3-1)+b+e*x(i)^2+g*(x(i)-x(i-1))+d*(x(i)-x(i+1));
                     end
                 end
-                dx(i+n)=-x(i);
             else
-                dx(k:n:2*n)=0;
+                dx(i)=x(i+n)-a*x(i)*(x(i)^2/3-1)+b+e*x(i)^2+g*((n-1)*x(i)-sum(x(1:n-1)));
             end
+            dx(i+n)=-x(i);
         end
     end
 
     function dx=gait(t,x)
-        dx=gaitpar(t,x,a,b,e,g,d,k,n)';
+        dx=gaitpar(t,x,a,b,e,g,d,n)';
     end
-IC=2*rand(2*n,1)-ones(2*n,1);
-IC(k:n:2*n,1)=0;
+
 %     options = odeset('RelTol',1e-4,'AbsTol',1e-4*ones(2*n,1),'NonNegative', 1:2*n);
-    [T,X] = ode45(@gait,[0 200],IC);
+    [T,X] = ode45(@gait,[0 200],2*rand(2*n,1)-ones(2*n,1));
     
     shift=10;
     for j=1:2*n

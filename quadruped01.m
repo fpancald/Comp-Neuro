@@ -1,16 +1,28 @@
 function quadruped01(a,b,e,g,d,n)
 %n number of legs (even), a,b,e,g,d coupling parameters
-
+%can be used with animals with even number of limbs
+%n needs to be >1
     function dx = gaitpar(t,x,a,b,e,g,d,n)
         %x(i)=xi, x(i+n)=yi
         for i=1:n
             if mod(i,2)==1
-                dx(i)=x(i+n)-a*x(i)*(x(i)^2/3-1)+b+e*x(i)^2+g*(x(i)-x(i+1))+d*(x(i)-x(n-i+1));
-                dx(i+n)=-x(i);
+                if i==n
+                    dx(i)=x(i+n)-a*x(i)*(x(i)^2/3-1)+b+e*x(i)^2+g*(x(i)-x(1))+d*(x(i)-x(i-1));
+                elseif  i==1
+                    dx(i)=x(i+n)-a*x(i)*(x(i)^2/3-1)+b+e*x(i)^2+g*(x(i)-x(i+1))+d*(x(i)-x(n));
+                else
+                    dx(i)=x(i+n)-a*x(i)*(x(i)^2/3-1)+b+e*x(i)^2+g*(x(i)-x(i+1))+d*(x(i)-x(i-1));
+                end
             else
-                dx(i)=x(i+n)-a*x(i)*(x(i)^2/3-1)+b+e*x(i)^2+g*(x(i)-x(i-1))+d*(x(i)-x(n-i+1));
-                dx(i+n)=-x(i);
+                if i==n
+                    dx(i)=x(i+n)-a*x(i)*(x(i)^2/3-1)+b+e*x(i)^2+g*(x(i)-x(i-1))+d*(x(i)-x(1));
+                elseif  i==1
+                    dx(i)=x(i+n)-a*x(i)*(x(i)^2/3-1)+b+e*x(i)^2+g*(x(i)-x(n))+d*(x(i)-x(i+1));
+                else
+                    dx(i)=x(i+n)-a*x(i)*(x(i)^2/3-1)+b+e*x(i)^2+g*(x(i)-x(i-1))+d*(x(i)-x(i+1));
+                end
             end
+            dx(i+n)=-x(i);
         end
     end
 
@@ -32,9 +44,11 @@ function quadruped01(a,b,e,g,d,n)
 %     plot(T,X(:,1:n));
     figure (1)
     plot(T,Y(:,1:n));
-%     plot(T,X(:,1:n));
     figure(2)
+    plot(T,X(:,1:n));
+    figure(3)
     plot(T,Y(:,n+1:2*n));
-%     plot(T,X(:,n+1:2*n));
+    figure(4)
+    plot(T,X(:,n+1:2*n));
 
 end
