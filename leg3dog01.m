@@ -1,4 +1,4 @@
-function leg3dog01(a,b,e,g,d,k,n)
+function [h]=leg3dog01(a,b,e,g,d,k,n)
 %n number of legs (even), a,b,e,g,d coupling parameters
 %can be used for animal with even number of legs and a missing limb
 %n>1
@@ -38,7 +38,7 @@ function leg3dog01(a,b,e,g,d,k,n)
 IC=2*rand(2*n,1)-ones(2*n,1);
 IC(k:n:2*n,1)=0;
 %     options = odeset('RelTol',1e-4,'AbsTol',1e-4*ones(2*n,1),'NonNegative', 1:2*n);
-    [T,X] = ode45(@gait,[0 200],IC);
+    [T,X] = ode45(@gait,[0 100],IC);
     
     shift=10;
     for j=1:2*n
@@ -49,13 +49,13 @@ IC(k:n:2*n,1)=0;
     
 %     figure(0)
 %     plot(T,X(:,1:n));
-    figure (1)
+    h=figure; 
     plot(T,Y(:,1:n));
-    figure(2)
-    plot(T,X(:,1:n));
-    figure(3)
-    plot(T,Y(:,n+1:2*n));
-    figure(4)
-    plot(T,X(:,n+1:2*n));
+%     figure(2)
+%     plot(T,X(:,1:n));
+%     figure(3)
+%     plot(T,Y(:,n+1:2*n));
+%     figure(4)
+%     plot(T,X(:,n+1:2*n));
 
 end

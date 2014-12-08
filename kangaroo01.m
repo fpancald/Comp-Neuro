@@ -1,4 +1,4 @@
-function kangaroo01(a,b,e,g,d,n)
+function [h]=kangaroo01(a,b,e,g,d,n)
 %can be used for any animal with even number of limbs and tail used for
 %movement
 %n number of legs (odd), a,b,e,g,d coupling parameters
@@ -37,7 +37,7 @@ function kangaroo01(a,b,e,g,d,n)
     end
 
 %     options = odeset('RelTol',1e-4,'AbsTol',1e-4*ones(2*n,1),'NonNegative', 1:2*n);
-    [T,X] = ode45(@gait,[0 200],2*rand(2*n,1)-ones(2*n,1));
+    [T,X] = ode45(@gait,[0 100],2*rand(2*n,1)-ones(2*n,1));
     
     shift=10;
     for j=1:2*n
@@ -48,13 +48,13 @@ function kangaroo01(a,b,e,g,d,n)
     
 %     figure(0)
 %     plot(T,X(:,1:n));
-    figure (1)
+    h=figure 
     plot(T,Y(:,1:n));
-    figure(2)
-    plot(T,X(:,1:n));
-    figure(3)
-    plot(T,Y(:,n+1:2*n));
-    figure(4)
-    plot(T,X(:,n+1:2*n));
+%     figure(2)
+%     plot(T,X(:,1:n));
+%     figure(3)
+%     plot(T,Y(:,n+1:2*n));
+%     figure(4)
+%     plot(T,X(:,n+1:2*n));
 
 end

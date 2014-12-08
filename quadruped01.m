@@ -1,4 +1,4 @@
-function quadruped01(a,b,e,g,d,n)
+function [h]=quadruped01(a,b,e,g,d,n)
 %n number of legs (even), a,b,e,g,d coupling parameters
 %can be used with animals with even number of limbs
 %n needs to be >1
@@ -31,7 +31,7 @@ function quadruped01(a,b,e,g,d,n)
     end
 
 %     options = odeset('RelTol',1e-4,'AbsTol',1e-4*ones(2*n,1),'NonNegative', 1:2*n);
-    [T,X] = ode45(@gait,[0 200],2*rand(2*n,1)-ones(2*n,1));
+    [T,X] = ode45(@gait,[0 100],2*rand(2*n,1)-ones(2*n,1));
     
     shift=10;
     for j=1:2*n
@@ -40,15 +40,15 @@ function quadruped01(a,b,e,g,d,n)
         end
     end
     
-%     figure(0)
-%     plot(T,X(:,1:n));
-    figure (1)
+% %     figure(0)
+% %     plot(T,X(:,1:n));
+    h=figure;
     plot(T,Y(:,1:n));
-    figure(2)
-    plot(T,X(:,1:n));
-    figure(3)
-    plot(T,Y(:,n+1:2*n));
-    figure(4)
-    plot(T,X(:,n+1:2*n));
+%     figure(2)
+%     plot(T,X(:,1:n));
+%     figure(3)
+%     plot(T,Y(:,n+1:2*n));
+%     figure(4)
+%     plot(T,X(:,n+1:2*n));
 
 end
